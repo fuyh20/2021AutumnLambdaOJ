@@ -106,6 +106,7 @@ void del(int i)
         }
     }
 }
+
 void PrintSP(int S, int D)
 {
     if (D != S)
