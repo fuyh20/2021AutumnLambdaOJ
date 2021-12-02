@@ -9,6 +9,7 @@ complex<long double> pans[110], ans[110];
 long double c[6][110];
 int num[110];
 
+
 void Der()
 {
     for (int i = 1; i < 6; i++)
