@@ -5,7 +5,7 @@ using namespace std;
 
 int Lx, Ly;
 bool map[1010][1010];
-short visted[1010][1010][4];
+short visited[1010][1010][5];
 int step = 0;
 vector<short> ans;
 
@@ -41,37 +41,37 @@ void BFS()
         switch (towards)
         {
         case 1:
-            if (y - 1 >= 0 && map[x][y - 1] == 0 && visted[x][y - 1][towards] == 0)
+            if (y - 1 >= 0 && map[x][y - 1] == 0 && visited[x][y - 1][towards] == 0)
             {
                 q.emplace(x, y - 1, towards);
-                visted[x][y - 1][towards] = 1;
+                visited[x][y - 1][towards] = 1;
                 flag = 1;
             }
             break;
 
         case 2:
-            if (x - 1 >= 0 && map[x - 1][y] == 0 && visted[x - 1][y][towards] == 0)
+            if (x - 1 >= 0 && map[x - 1][y] == 0 && visited[x - 1][y][towards] == 0)
             {
                 q.emplace(x - 1, y, towards);
-                visted[x - 1][y][towards] = 1;
+                visited[x - 1][y][towards] = 1;
                 flag = 1;
             }
             break;
 
         case 3:
-            if (map[x][y + 1] == 0 && visted[x][y + 1][towards] == 0 && y + 1 < Ly)
+            if (map[x][y + 1] == 0 && visited[x][y + 1][towards] == 0 && y + 1 < Ly)
             {
                 q.emplace(x, y + 1, towards);
-                visted[x][y + 1][towards] = 1;
+                visited[x][y + 1][towards] = 1;
                 flag = 1;
             }
             break;
 
         case 4:
-            if (map[x + 1][y] == 0 && visted[x + 1][y][towards] == 0 && x + 1 < Lx)
+            if (map[x + 1][y] == 0 && visited[x + 1][y][towards] == 0 && x + 1 < Lx)
             {
                 q.emplace(x + 1, y, towards);
-                visted[x + 1][y][towards] = 1;
+                visited[x + 1][y][towards] = 1;
                 flag = 1;
             }
             break;
@@ -85,34 +85,34 @@ void BFS()
             switch (towards)
             {
             case 1:
-                if (y - 2 >= 0 && map[x][y - 2] == 0 && visted[x][y - 2][towards] == 0)
+                if (y - 2 >= 0 && map[x][y - 2] == 0 && visited[x][y - 2][towards] == 0)
                 {
                     q.emplace(x, y - 2, towards);
-                    visted[x][y - 2][towards] = 2;
+                    visited[x][y - 2][towards] = 2;
                 }
                 break;
 
             case 2:
-                if (x - 2 >= 0 && map[x - 2][y] == 0 && visted[x - 2][y][towards] == 0)
+                if (x - 2 >= 0 && map[x - 2][y] == 0 && visited[x - 2][y][towards] == 0)
                 {
                     q.emplace(x - 2, y, towards);
-                    visted[x - 2][y][towards] = 2;
+                    visited[x - 2][y][towards] = 2;
                 }
                 break;
 
             case 3:
-                if (map[x][y + 2] == 0 && visted[x][y + 2][towards] == 0 && y + 2 < Ly)
+                if (map[x][y + 2] == 0 && visited[x][y + 2][towards] == 0 && y + 2 < Ly)
                 {
                     q.emplace(x, y + 2, towards);
-                    visted[x][y + 2][towards] = 2;
+                    visited[x][y + 2][towards] = 2;
                 }
                 break;
 
             case 4:
-                if (map[x + 2][y] == 0 && visted[x + 2][y][towards] == 0 && x + 2 < Lx)
+                if (map[x + 2][y] == 0 && visited[x + 2][y][towards] == 0 && x + 2 < Lx)
                 {
                     q.emplace(x + 2, y, towards);
-                    visted[x + 2][y][towards] = 2;
+                    visited[x + 2][y][towards] = 2;
                 }
                 break;
 
@@ -122,17 +122,17 @@ void BFS()
         }
 
         int tmp = (towards + 1) > 4 ? 1 : (towards + 1);
-        if (visted[x][y][tmp] == 0)
+        if (visited[x][y][tmp] == 0)
         {
             q.emplace(x, y, tmp);
-            visted[x][y][tmp] = 3;
+            visited[x][y][tmp] = 3;
         }
 
         tmp = (towards - 1) > 0 ? (towards - 1) : 4;
-        if (visted[x][y][tmp] == 0)
+        if (visited[x][y][tmp] == 0)
         {
             q.emplace(x, y, tmp);
-            visted[x][y][tmp] = 4;
+            visited[x][y][tmp] = 4;
         }
     }
 }
@@ -144,7 +144,7 @@ void recall()
     {
         step++;
         int t = 0;
-        switch (visted[tmp.x][tmp.y][tmp.towards])
+        switch (visited[tmp.x][tmp.y][tmp.towards])
         {
         case 1:
             ans.emplace_back(1);
@@ -198,7 +198,7 @@ int main()
     cin >> START.x >> START.y >> START.towards >> END.x >> END.y >> END.towards;
 
     q.emplace(START);
-    visted[START.x][START.y][START.towards] = 1;
+    visited[START.x][START.y][START.towards] = 1;
     BFS();
 
     recall();
