@@ -8,7 +8,7 @@ using namespace std;
 int N;
 int ans1, ans2;
 int a[1000010];
-int dp[12][4][2];
+int dp[1000010][4][2];
 
 int sum()
 {
