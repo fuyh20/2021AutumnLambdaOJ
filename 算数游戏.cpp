@@ -9,7 +9,7 @@ int main()
     scanf("%lld", &n);
     if (n == 0)
     {
-        printf("-1");
+        printf("10");
         return 0;
     }
     if (n == 1)
